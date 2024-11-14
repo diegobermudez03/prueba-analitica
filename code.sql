@@ -157,7 +157,7 @@ SELECT
         FROM localidades loc
         WHERE tm.localidad_calculada ILIKE ('%' || loc.palabra_clave || '%')
         LIMIT 1
-        ), 'Localidad desconocida') AS localidad,
+        ), '99 - Localidad desconocida') AS localidad,
     COALESCE(
         (SELECT aseg.nombre
         FROM aseguradoras aseg
@@ -250,7 +250,7 @@ SELECT
         FROM localidades loc
         WHERE tm.localidad ILIKE ('%' || loc.palabra_clave || '%')
         LIMIT 1
-        ), 'Localidad desconocida') AS localidad,
+        ), '99 - Localidad desconocida') AS localidad,
     'SIN DATO',
     CASE 
         WHEN tm.fecha_nacimiento ~ '^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/[0-9]{4}$'
@@ -331,7 +331,7 @@ SELECT
         FROM localidades loc
         WHERE tm.localidadfic_3 ILIKE ('%' || loc.palabra_clave || '%')
         LIMIT 1
-        ), 'Localidad desconocida') AS localidad,
+        ), '99 - Localidad desconocida') AS localidad,
     COALESCE(
         (SELECT aseg.nombre
         FROM aseguradoras aseg
@@ -399,7 +399,7 @@ SELECT
         FROM localidades loc
         WHERE tm.localidad_fic = loc.codigo
         LIMIT 1
-        ), 'Localidad desconocida') AS localidad,
+        ), '99 - Localidad desconocida') AS localidad,
     COALESCE(
         (SELECT aseg.nombre
         FROM aseguradoras aseg
@@ -466,7 +466,7 @@ WITH atendidos AS(
     FROM (
         SELECT vs.localidad AS localidad,
             vs.fecha_caracterizacion as fecha,
-            CASE WHEN vs.localidad != 'Localidad desconocida' THEN CAST(LEFT(vs.localidad, 2) AS INT) ELSE 0 END AS cod_loc,
+            CASE WHEN vs.localidad != '99 - Localidad desconocida' THEN CAST(LEFT(vs.localidad, 2) AS INT) ELSE 0 END AS cod_loc,
             (
                 SELECT p.grupo_edad
                 FROM poblacion p
